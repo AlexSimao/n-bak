@@ -1,0 +1,17 @@
+docker run -d \
+  --name pihole \
+  --cap-add=NET_ADMIN \
+  --hostname pihole \
+  --restart=unless-stopped \
+  --memory=1823m \
+  -e TZ="Europe/Brussels" \
+  -e FTLCONF_dns_listeningMode=all \
+  -e FTLCONF_webserver_api_password=casaos \
+  -p 8800:80/tcp \
+  -p 53:53/tcp \
+  -p 53:53/udp \
+  -p 8443:443/tcp \
+  -v /DATA/AppData/pihole/etc/pihole/:/etc/pihole \
+  --network bridge \
+  pihole/pihole:latest
+

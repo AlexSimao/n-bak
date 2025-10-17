@@ -1,0 +1,5 @@
+===================FILESYSTEM=====================
+
+/media/alex/256 GB Disk
+xdg-config/MangoHud:ro
+xdg-data/applications

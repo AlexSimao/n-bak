@@ -1,0 +1,39 @@
+#Iniciou sistema primeira vez:
+apt update
+apt upgrade
+
+apt install curl git sudo
+
+#Cria novo usuario:
+adduser <nome_do_usuario>
+usermod -aG sudo <nome_do_usuario>
+
+# ======================== Reinicia Sistema
+
+# Instalar casa-os:
+curl -fsSL https://get.casaos.io | sudo bash
+
+# Verifica se casaos esta rodando:
+systemctl status casaos
+
+#Possivel erro, rode:
+sudo rm -f /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin
+sudo apt-get clean
+sudo apt-get update
+
+sudo dpkg --configure -a
+sudo apt-get install -f
+
+# ========================== resolver problema com a porta 53
+# Nessecario alterar o arquivo /etc/systemd/resolved.conf
+# Descomentar e alterar valor: DNSStubListener=no
+nano /etc/systemd/resolved.conf
+
+# Reiniciar tvbox
+reboot
+
+# Verificar se posta 53 esta em uso, NÃO deve aparecer:
+netstat -tupln | grep 53
+
+
+

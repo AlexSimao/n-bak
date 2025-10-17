@@ -1,0 +1,54 @@
+name: pihole-casaos
+services:
+  pihole:
+    cap_add:
+      - NET_ADMIN
+    cpu_shares: 90
+    command: []
+    container_name: pihole
+    deploy:
+      resources:
+        limits:
+          memory: max
+    environment:
+      - FTLCONF_dns_listeningMode=all
+      - FTLCONF_webserver_api_password=casaos
+      - TZ=Europe/Brussels
+    hostname: pihole
+    image: pihole/pihole:latest
+    labels:
+      icon: https://icon.casaos.io/main/all/pihole.png
+    ports:
+      - target: 80
+        published: "8800"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: tcp
+      - target: 53
+        published: "53"
+        protocol: udp
+      - target: 443
+        published: "8443"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/pihole/etc/pihole/
+        target: /etc/pihole
+    devices: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://icon.casaos.io/main/all/pihole.png
+  index: /admin
+  is_uncontrolled: false
+  port_map: "8800"
+  scheme: http
+  store_app_id: pihole-casaos
+  title:
+    custom: ""
+    en_us: pihole

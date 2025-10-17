@@ -1,0 +1,1 @@
+Caso seja necessario um arquivo .dtb padrao para modelo/arquiterura s905x3
