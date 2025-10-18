@@ -10,11 +10,12 @@ cd $HOME/Downloads
 git clone --depth=1 https://github.com/AlexSimao/n-bak.git $HOME/Downloads/n-bak
 
 # Baixa o manifest.txt com info dos apps que serao instalados pelo linuxtoys e os instala.
-yes | LT_MANIFEST=1 linuxtoys $HOME/Downloads/n-bak/manifest.txt
+yes | LT_MANIFEST=1 linuxtoys $HOME/Downloads/n-bak/*manifest*.txt
 
 # Instala o SaveDesktop e importa pre-configurações
 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=savedesktop io.github.vikdevelop.SaveDesktop --import-config $HOME/Downloads/n-bak/*.sd.zip
 
+mkdir -p $HOME/.local
 mv $HOME/Downloads/n-bak/My.local/* $HOME/.local/
 
 mkdir -p $HOME/.config/autostart
@@ -35,6 +36,7 @@ sudo snap refresh
 sudo snap install intellij-idea-community --classic
 
 sudo echo 'vm.swappiness=40' >> /etc/sysctl.conf
+sudo sysctl -p
 
 #sudo rm -rf $HOME/Downloads/*
 
