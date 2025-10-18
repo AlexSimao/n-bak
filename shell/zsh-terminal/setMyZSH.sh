@@ -12,6 +12,13 @@ mkdir $HOME/.fonts
 mv UbuntuMono $HOME/.fonts
 fc-cache -fv
 
+# Cria um arquivo que o linuxtoys consegue ler para fazer o Download atravez dele.
+cat << 'EOF' >> $HOME/Downloads/manifest.txt
+# LinuxToys Manifest File 
+
+flathub
+EOF
+
 # Instalar Oh My Zsh sem mudar automaticamente para o shell
 # export RUNZSH=no
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
@@ -61,17 +68,10 @@ sudo chsh -s $(which zsh) $(whoami)
 # Instala o LinuxToys
 curl -fsSL https://linux.toys/install.sh | sh
 
-# Cria um arquivo que o linuxtoys consegue ler para fazer o Download atravez dele.
-cat << 'EOF' >> $HOME/Downloads/manifest.txt
-# LinuxToys Manifest File 
-
-flathub
-EOF
-
-sleep 5
-
 # Executa o linuxtoys e instala os programas do manifest.txt
-yes | sh LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt 
+yes | sh LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt
+
+sleep 2
 
 # Remove tudo que foi instalado em $HOME/Downloads
 rm -rf $HOME/Downloads/*
