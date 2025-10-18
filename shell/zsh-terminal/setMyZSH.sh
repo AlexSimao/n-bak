@@ -62,12 +62,9 @@ sudo chsh -s $(which zsh) $(whoami)
 curl -fsSL https://linux.toys/install.sh | sh
 
 # Configurando Flathub na maquina.
-sudo apt install flatpak
-sudo apt install gnome-software-plugin-flatpak
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo apt install flatpak gnome-software-plugin-flatpak gnome-software-plugin-snap malcontent-gui -y
 
-# Executa o linuxtoys e instala os programas do manifest.txt
-yes | LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt 
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Remove tudo que foi instalado em $HOME/Downloads
 rm -rf $HOME/Downloads/*
