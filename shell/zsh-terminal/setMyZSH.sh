@@ -64,7 +64,7 @@ curl -fsSL https://linux.toys/install.sh | sh
 # Configurando Flathub na maquina.
 sudo apt install flatpak gnome-software-plugin-flatpak gnome-software-plugin-snap malcontent-gui -y
 
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Remove tudo que foi instalado em $HOME/Downloads
 rm -rf $HOME/Downloads/*
