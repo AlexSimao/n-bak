@@ -69,7 +69,7 @@ sudo chsh -s $(which zsh) $(whoami)
 curl -fsSL https://linux.toys/install.sh | sh
 
 # Executa o linuxtoys e instala os programas do manifest.txt
-yes | sh LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt
+yes | sh -c "$(LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt)"
 
 sleep 2
 
