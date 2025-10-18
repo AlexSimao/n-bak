@@ -68,6 +68,8 @@ cat << 'EOF' >> $HOME/Downloads/manifest.txt
 flathub
 EOF
 
+sleep 5
+
 # Executa o linuxtoys e instala os programas do manifest.txt
 yes | sh LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt 
 
