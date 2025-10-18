@@ -1,0 +1,16 @@
+# LinuxToys Manifest File 
+
+flathub
+docker
+code
+swapfile
+btassist
+grub-btrfs
+steam
+lutris
+goverlay
+discord
+bottles
+flatseal
+vlc
+

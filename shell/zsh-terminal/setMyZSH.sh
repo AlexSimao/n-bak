@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Instalar zsh:
-sudo apt update && sudo apt install curl git zsh -y
+sudo apt update && sudo apt install curl git zsh wget -y
 
 # Instala a fonte, extrai e move a para "$HOME/.fonts":
 # Alterar a fonte no Terminal para que não tenha icones quebrados, Fonte "UbuntuMono Nerd Font Mono"
@@ -56,10 +56,26 @@ sudo chsh -s $(which zsh) $(whoami)
 
 # Installs mise and adds activation to ~/.zshrc
 # sh -c "$(curl https://mise.run/$(basename "$SHELL") | sh)"
-sh -c "$(curl https://mise.run/zsh | sh)"
+# sh -c "$(curl https://mise.run/zsh | sh)"
+
+# Instala o LinuxToys
+curl -fsSL https://linux.toys/install.sh | sh
+
+# Cria um arquivo que o linuxtoys consegue ler para fazer o Download atravez dele.
+cat << 'EOF' >> $HOME/Downloads/manifest.txt
+# LinuxToys Manifest File 
+
+flathub
+EOF
+
+# Executa o linuxtoys e instala os programas do manifest.txt
+yes | sh LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt 
+
+# Remove tudo que foi instalado em $HOME/Downloads
+rm -rf $HOME/Downloads/*
 
 echo '
-Reinicie sua sessão do Shell/Terminal
+Reinicie a maquina para finalizar a instalação.
 '
 
 # Quando rodar o script mantera o terminal interativo e visivel para o usuario

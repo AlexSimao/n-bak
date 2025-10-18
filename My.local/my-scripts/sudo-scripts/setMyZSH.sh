@@ -1,0 +1,1 @@
+/media/alex/n-bak/shell/zsh-terminal/setMyZSH.sh
