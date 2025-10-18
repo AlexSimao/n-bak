@@ -61,12 +61,10 @@ sudo chsh -s $(which zsh) $(whoami)
 # Instala o LinuxToys
 curl -fsSL https://linux.toys/install.sh | sh
 
-# Cria um arquivo que o linuxtoys consegue ler para fazer o Download atravez dele.
-cat << 'EOF' >> $HOME/Downloads/manifest.txt
-# LinuxToys Manifest File 
-
-flathub
-EOF
+# Configurando Flathub na maquina.
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Executa o linuxtoys e instala os programas do manifest.txt
 yes | LT_MANIFEST=1 linuxtoys $HOME/Downloads/manifest.txt 
