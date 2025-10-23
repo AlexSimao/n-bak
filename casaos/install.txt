@@ -26,7 +26,7 @@ sudo apt-get install -f
 
 # ========================== resolver problema com a porta 53
 # Nessecario alterar o arquivo /etc/systemd/resolved.conf
-# Descomentar e alterar valor: DNSStubListener=no
+# Descomentar e alterar valor para: DNSStubListener=no
 nano /etc/systemd/resolved.conf
 
 # Reiniciar tvbox
