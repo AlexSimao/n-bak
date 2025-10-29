@@ -2,7 +2,7 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt autoremove
+sudo apt autoremove -y
 sudo apt install curl git zsh fastfetch pulseaudio-utils -y
 
 cd /tmp
@@ -20,7 +20,7 @@ sudo linuxtoys-cli --install --script docker code swapfile btassist grub-btrfs s
 sh -c "$(curl https://mise.run/zsh | sh)"
 
 # Instala o SaveDesktop e importa pre-configurações salvas
-sudo flatpak install flathub io.github.vikdevelop.SaveDesktop -y
+sudo flatpak install flathub --system io.github.vikdevelop.SaveDesktop -y
 
 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=savedesktop io.github.vikdevelop.SaveDesktop --import-config /tmp/n-bak/*.sd.zip
 
@@ -33,9 +33,9 @@ mv /tmp/n-bak/My.local/* $HOME/.local/
 
 # Configura saida de audio combinada
 mkdir -p $HOME/.config/autostart
-chmod +x $HOME/.local/my-scripts/sink-audio/combined-sink.desktop
-chmod +x $HOME/.local/my-scripts/sink-audio/combined-sink.sh 
-ln -s $HOME/.local/my-scripts/sink-audio/combined-sink.desktop $HOME/.config/autostart/combined-sink.desktop
+chmod +x $HOME/.local/my_scripts/sink-audio/combined-sink.desktop
+chmod +x $HOME/.local/my_scripts/sink-audio/combined-sink.sh 
+ln -s $HOME/.local/my_scripts/sink-audio/combined-sink.desktop $HOME/.config/autostart/combined-sink.desktop
 
 # Adiciona configurações do MangoHud
 mkdir -p $HOME/.config/MangoHud
@@ -55,8 +55,13 @@ sudo snap refresh
 sudo snap install intellij-idea-community --classic
 
 # Altera o swappiness para 40 (SWAP só começa a ser usada quando a RAM atingir 60%)
+sudo touch /etc/sysctl.conf
 sudo echo 'vm.swappiness=40' > /etc/sysctl.conf
 sudo sysctl -p
+
+sudo rm -rf /.snapshots
+sudo btrfs subvolume create /.snapshots
+
 
 # Remove arquivos criados por esse script
 sudo rm -rf /tmp/discord.deb /tmp/n-bak

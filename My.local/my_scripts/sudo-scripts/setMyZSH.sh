@@ -12,15 +12,23 @@ mkdir $HOME/.fonts
 mv UbuntuMono $HOME/.fonts
 fc-cache -fv
 
+sleep 1
+
 # Instalar Oh My Zsh sem mudar automaticamente para o shell
 # export RUNZSH=no
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
 
+sleep 1
+
 # Cria Template do .zshrc na home do usuario
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/templates/zshrc.zsh-template > $HOME/.zshrc
 
+sleep 1
+
 # Instala o zinit para gerenciar plugins no ZSH
 yes | bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+
+sleep 1
 
 cat << 'EOF' >> "$HOME/.zshrc"
 
@@ -51,6 +59,8 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light spaceship-prompt/spaceship-prompt
 EOF
 
+sleep 1
+
 # Altera o Shell do osuario para o ZSH
 sudo chsh -s $(which zsh) $(whoami)
 
@@ -65,6 +75,8 @@ curl -fsSL https://linux.toys/install.sh | sh
 sudo apt install flatpak gnome-software-plugin-flatpak gnome-software-plugin-snap malcontent-gui -y
 
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+sleep 1
 
 # Remove tudo que foi instalado em /tmp
 sudo rm -rf /tmp/UbuntuMono /tmp/UbuntuMono* linuxtoys*

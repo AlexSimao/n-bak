@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/home/alex/.local/my-scripts/sink-audio/combined-sink.sh
+Exec=/home/alex/.local/my_scripts/sink-audio/combined-sink.sh
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
