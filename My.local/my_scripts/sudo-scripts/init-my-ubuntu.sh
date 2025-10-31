@@ -1,7 +1,7 @@
 #!/bin/sh
 
-sudo apt update
-sudo apt upgrade
+sudo apt update -y
+sudo apt upgrade -y
 sudo apt autoremove -y
 sudo apt install curl git zsh fastfetch pulseaudio-utils -y
 
@@ -17,7 +17,7 @@ sudo apt install /tmp/discord.deb -y
 sudo linuxtoys-cli --install --script docker code swapfile btassist grub-btrfs steam lutris goverlay bottles flatseal vlc -y
 
 # Install Mise
-sh -c "$(curl https://mise.run/zsh | sh)"
+sudo sh -c "$(curl https://mise.run/zsh | sh)"
 
 # Instala o SaveDesktop e importa pre-configurações salvas
 sudo flatpak install flathub --system io.github.vikdevelop.SaveDesktop -y
@@ -59,9 +59,9 @@ sudo touch /etc/sysctl.conf
 sudo echo 'vm.swappiness=40' > /etc/sysctl.conf
 sudo sysctl -p
 
-sudo rm -rf /.snapshots
 sudo btrfs subvolume create /.snapshots
 
+sudo usermod -aG docker $USER
 
 # Remove arquivos criados por esse script
 sudo rm -rf /tmp/discord.deb /tmp/n-bak
