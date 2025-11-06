@@ -49,6 +49,7 @@ mv /tmp/n-bak/Documentos-Curriculos $HOME/Documentos/
 # flatpak override --user --filesystem=/media/alex/256gb-disk
 flatpak override --user --filesystem=xdg-config/MangoHud:ro
 flatpak override --user --filesystem=xdg-data/applications
+flatpak override --user --env=MANGOHUD=1
 
 # Verifica se tem alguama atualização de apps Snap e instala o IntelliJ
 sudo snap refresh
