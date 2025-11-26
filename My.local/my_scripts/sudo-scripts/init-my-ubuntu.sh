@@ -14,7 +14,7 @@ curl -fsSL https://discord.com/api/download\?platform\=linux\&format\=deb -o /tm
 sudo apt install /tmp/discord.deb -y
 
 # Roda os seguintes scripts do LinuxToys:
-sudo linuxtoys-cli --install --script docker code swapfile btassist grub-btrfs steam lutris goverlay bottles flatseal vlc -y
+sudo linuxtoys-cli --install --script docker code swapfile btassist grub-btrfs steam lutris goverlay bottles flatseal -y
 
 # Install Mise
 sudo sh -c "$(curl https://mise.run/zsh | sh)"
@@ -55,10 +55,8 @@ flatpak override --user --env=MANGOHUD=1
 sudo snap refresh
 sudo snap install intellij-idea-community --classic
 
-# Altera o swappiness para 40 (SWAP só começa a ser usada quando a RAM atingir 60%)
-sudo touch /etc/sysctl.conf
-sudo echo 'vm.swappiness=40' > /etc/sysctl.conf
-sudo sysctl -p
+# Altera o swappiness para 30 (SWAP só começa a ser usada quando a RAM atingir 70%)
+echo 'vm.swappiness=30'| sudo tee /etc/sysctl.d/7-swappiness.conf
 
 sudo btrfs subvolume create /.snapshots
 
