@@ -1,6 +1,6 @@
 #!/bin/sh
 # LINUXTOYS QUICK-INSTALLER (POSIX /bin/sh)
 
-curl -fsSL https://linux.toys/install.sh | sh
+curl -fsSL https://linux.toys/install.sh | bash
 
 exec $SHELL
