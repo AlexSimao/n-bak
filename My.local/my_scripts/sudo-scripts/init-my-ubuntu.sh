@@ -14,7 +14,7 @@ curl -fsSL https://discord.com/api/download\?platform\=linux\&format\=deb -o /tm
 sudo apt install /tmp/discord.deb -y
 
 # Roda os seguintes scripts do LinuxToys:
-sudo linuxtoys-cli --install --script docker code swapfile btassist grub-btrfs steam lutris goverlay bottles flatseal -y
+sudo linuxtoys-cli --install --script docker swapfile btassist grub-btrfs steam lutris goverlay bottles flatseal -y
 
 # Install Mise
 sudo sh -c "$(curl https://mise.run/zsh | sh)"

@@ -61,7 +61,7 @@ EOF
 
 sleep 1
 
-# Altera o Shell do osuario para o ZSH
+# Altera o Shell do usuario para o ZSH
 sudo chsh -s $(which zsh) $(whoami)
 
 # Installs mise and adds activation to ~/.zshrc
@@ -69,7 +69,7 @@ sudo chsh -s $(which zsh) $(whoami)
 # sh -c "$(curl https://mise.run/zsh | sh)"
 
 # Instala o LinuxToys
-curl -fsSL https://linux.toys/install.sh | sh
+curl -fsSL https://linux.toys/install.sh | bash
 
 # Configurando Flathub na maquina.
 sudo apt install flatpak gnome-software-plugin-flatpak gnome-software-plugin-snap malcontent-gui -y
