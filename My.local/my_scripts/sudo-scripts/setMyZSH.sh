@@ -1,16 +1,20 @@
 #!/bin/sh
 
 # Instalar zsh:
-sudo apt update && sudo apt install curl git zsh wget -y
+sudo apt update && sudo apt install curl git zsh wget fastfetch -y
 
 # Instala a fonte, extrai e move a para "$HOME/.fonts":
-# Alterar a fonte no Terminal para que não tenha icones quebrados, Fonte "UbuntuMono Nerd Font Mono"
 wget -cP /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.tar.xz
 cd /tmp && mkdir UbuntuMono
 tar -xf UbuntuMono.tar.xz -C UbuntuMono
 mkdir $HOME/.fonts
 mv UbuntuMono $HOME/.fonts
+
+# Recarrega todas as fontes
 fc-cache -fv
+
+# Alterar a fonte no Terminal Ptyxis para: "UbuntuMono Nerd Font Mono 12"
+gsettings set org.gnome.Ptyxis font-name 'UbuntuMono Nerd Font Mono 12'
 
 sleep 1
 
@@ -22,8 +26,16 @@ sleep 1
 
 # Cria Template do .zshrc na home do usuario
 curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/templates/zshrc.zsh-template > $HOME/.zshrc
+# Comenta a linha referenta a plugins no .zshrc
+sed -i "/plugins=(git)/s/^/# /" $HOME/.zshrc
 
 sleep 1
+
+# Aliases/Apelidos de atalhos personalizados.
+cat << 'EOF' >> "$HOME/.zshrc"
+alias ips="ip -c -br a"
+alias mkdir="mkdir -pv"
+EOF
 
 # Instala o zinit para gerenciar plugins no ZSH
 yes | bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
@@ -82,7 +94,9 @@ sleep 1
 sudo rm -rf /tmp/UbuntuMono /tmp/UbuntuMono* linuxtoys*
 
 echo '
+=============================================
 Reinicie a maquina para finalizar a instalação.
+=============================================
 '
 
 # Quando rodar o script mantera o terminal interativo e visivel para o usuario
