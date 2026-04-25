@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Esse script deve ser inserido em /usr/local/bin/btrfs-rollback
+# sudo cp ./btrfs-rollback /usr/local/bin/btrfs-rollback
+
+# USO:
+# sudo btrfs-rollback <SNAPSHOT_ID>
+
+if [ -z "$1" ]; then
+    echo "Uso: sudo btrfs-rollback <ID_DO_SNAPSHOT>"
+    exit 1
+fi
+ID=$1
+DISK=$(findmnt -no SOURCE / | sed 's/\[.*\]//')
+MNT="/mnt/reparo_btrfs"
+sudo mkdir -p $MNT
+sudo mount -o subvolid=5 $DISK $MNT
+
+echo "Substituindo @ atual pelo snapshot $ID..."
+# 1. Renomeia o atual para backup
+sudo mv $MNT/@ $MNT/@_antigo_$(date +%Y-%m-%d_%H:%M:%S)
+
+# 2. Cria o novo @ a partir do snapshot
+sudo btrfs subvolume snapshot $MNT/.snapshots/$ID/snapshot $MNT/@
+
+# 3. O PULO DO GATO: Atualiza o subvolume padrão para o novo @
+# Isso permite que você delete os subvolumes antigos depois
+NEW_ID=$(btrfs subvolume list $MNT | grep "path @$" | awk '{print $2}')
+sudo btrfs subvolume set-default $NEW_ID $MNT
+
+sudo umount $MNT
+echo "Pronto! O subvolume padrão agora é o novo @ (ID: $NEW_ID)."
+echo "Reinicie para aplicar."

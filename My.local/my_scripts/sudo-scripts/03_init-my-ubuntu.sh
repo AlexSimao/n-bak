@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt autoremove -y
-sudo apt install curl git zsh pulseaudio-utils -y
+sudo apt install curl git zsh pulseaudio-utils gnome-user-share -y
 
 cd /tmp
 
@@ -13,16 +13,30 @@ git clone --depth=1 https://github.com/AlexSimao/n-bak.git /tmp/n-bak
 # curl -fsSL https://discord.com/api/download\?platform\=linux\&format\=deb -o /tmp/discord.deb
 # sudo apt install /tmp/discord.deb -y
 
+# Reinstala o grub na partiçao /
+sudo grub-install /dev/sda1
+
 # Roda os seguintes scripts do LinuxToys:
-sudo linuxtoys-cli --install --script docker steam lutris goverlay bottles flatseal grub-btrfs swapfile -y
+sudo linuxtoys-cli --install --script swapfile docker steam lutris goverlay bottles flatseal -y
 
 # Install Mise
 sudo sh -c "$(curl https://mise.run/zsh | sh)"
 
+# Ativa o Completion do mise para aparecer as opçẽes possiveis com o  "TAB"
+# mise use --global npm maven node java@21 usage   
+mise use --global usage
+mise completion zsh  | sudo tee /usr/local/share/zsh/site-functions/_mise
+
 # Instala o SaveDesktop e importa pre-configurações salvas
 sudo flatpak install flathub --system io.github.vikdevelop.SaveDesktop -y
 
-/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=savedesktop io.github.vikdevelop.SaveDesktop --import-config /tmp/n-bak/*.sd.zip
+# /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=savedesktop io.github.vikdevelop.SaveDesktop --import-config /tmp/n-bak/*.sd.zip
+
+flatpak run \
+  --filesystem=/tmp/n-bak:ro \
+  io.github.vikdevelop.SaveDesktop \
+  --import-config /tmp/n-bak/*.sd.zip
+
 
 # Remove pastas que podem existir
 sudo rm -rf $HOME/.local/my_programs
@@ -52,16 +66,34 @@ flatpak override --user --filesystem=xdg-data/applications
 flatpak override --user --env=MANGOHUD=1
 
 # Verifica se tem alguama atualização de apps Snap e instala o IntelliJ
-# sudo snap refresh
+sudo snap refresh
+# sudo snap install code --classic
 # sudo snap install intellij-idea-community --classic
 
 # Altera o swappiness para 30 (SWAP só começa a ser usada quando a RAM atingir 70%)
-echo 'vm.swappiness=30'| sudo tee /etc/sysctl.d/7-swappiness.conf
+echo 'vm.swappiness=20'| sudo tee /etc/sysctl.d/7-swappiness.conf
 
 sudo btrfs subvolume create /.snapshots
 
 # Adiciona o usuario a grupo do Docker.
 sudo usermod -aG docker $USER
+
+# Mexendo em configurações do GRUB
+
+# Pede para deixar o menu do grub visivel
+sudo sed -i '/^GRUB_TIMEOUT_STYLE=hidden$/{
+s/^/#/
+a GRUB_TIMEOUT_STYLE=menu
+}' /etc/default/grub
+
+# Altera o Timeout para 15s
+sudo sed -i 's/^GRUB_TIMEOUT=0$/GRUB_TIMEOUT=15/' /etc/default/grub
+
+# Altera a resolução do grub para 1920x1080
+sudo sed -i 's/^#\?GRUB_GFXMODE=.*/GRUB_GFXMODE=1920x1080/' /etc/default/grub
+
+# Descomenta ou substitui se já existir a linha referente ao OS_PROBER
+sudo sed -i 's/^#\?GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' /etc/default/grub
 
 # Adiciona uma customizção personalizada ao GRUB.  Reconhece automatomamente pendrivers bootaveis do Batocera e Ventoy.
 sudo tee -a /etc/grub.d/40_custom << 'EOF'

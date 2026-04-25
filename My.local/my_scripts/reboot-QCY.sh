@@ -1,6 +1,7 @@
 #!/bin/bash
 
-BT_MAC="84:AC:60:E9:02:7C"
+#BT_MAC="84:AC:60:E9:02:7C"
+BT_MAC="84:AC:60:79:5E:EC"
 
 # Reconecta o dispositivo
 bluetoothctl disconnect "$BT_MAC"

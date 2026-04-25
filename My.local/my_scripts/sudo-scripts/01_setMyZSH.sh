@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Instalar zsh:
-sudo apt update && sudo apt install curl git zsh wget fastfetch -y
+sudo apt update && sudo apt install curl git zsh wget fastfetch nala bat -y
 
 # Instala a fonte, extrai e move a para "$HOME/.fonts":
 wget -cP /tmp https://github.com/ryanoasis/nerd-fonts/releases/latest/download/UbuntuMono.tar.xz
@@ -35,6 +35,9 @@ sleep 1
 cat << 'EOF' >> "$HOME/.zshrc"
 alias ips="ip -c -br a"
 alias mkdir="mkdir -pv"
+alias sudo="sudo "
+alias apt="nala"
+alias cat="batcat"
 EOF
 
 # Instala o zinit para gerenciar plugins no ZSH
