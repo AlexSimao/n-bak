@@ -88,7 +88,7 @@ https://github.com/AlexSimao/n-bak.git \
 
 sudo linuxtoys \
     --install \
-    --script docker steam goverlay bottles flatseal \
+    --script docker steam bottles flatseal \
     -y
 
 # ==============================================================================
@@ -165,7 +165,7 @@ mv -f \
 # ==============================================================================
 
 flatpak override --user \
---filesystem=xdg-config/MangoHud:ro
+--filesystem=xdg-config/MangoHud
 
 flatpak override --user \
 --filesystem=xdg-data/applications

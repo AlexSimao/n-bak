@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Baixa o conteúdo da URL e passa diretamente para o bash
+# Para melhor uso, esse script deve ser adicionado a uma das pasta da variavel $PATH
+#  /home/$USER/.local/bin/run
+
+# Verifica se o link foi passado
+if [ -z "$1" ]; then
+    echo "Erro: Você precisa passar a URL do script como parâmetro!"
+    echo "Uso: $0 <URL_DO_SCRIPT>"
+    exit 1
+fi
+
+# Executa o curl de forma segura
+curl -fsSL "$1" | bash
+
