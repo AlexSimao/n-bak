@@ -1,0 +1,26 @@
+[/]
+default-profile-uuid='31807ad7dcf8a97a1ae0e2596a8e17a1'
+font-name='UbuntuMono Nerd Font Mono 12'
+interface-style='dark'
+profile-uuids=['31807ad7dcf8a97a1ae0e2596a8e17a1']
+restore-session=false
+use-system-font=false
+window-size=(uint32 113, uint32 24)
+
+[Profiles/31807ad7dcf8a97a1ae0e2596a8e17a1]
+bold-is-bright=false
+label='Alex Terminal'
+palette='GNOME Legacy'
+
+[Shortcuts]
+close-tab='<Control>w'
+close-window='<ctrl><shift>q'
+copy-clipboard='<Control>c'
+new-tab='<Control>t'
+paste-clipboard='<Control>v'
+search='<Control>f'
+select-all='<Control>a'
+select-none=''
+set-title=''
+tab-overview='<Control>o'
+undo-close-tab='<Shift><Control>t'

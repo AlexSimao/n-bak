@@ -1,6 +1,0 @@
-===================FILESYSTEM=====================
-
-# Adiciona configurações padrões para apps Flatpak 
-# flatpak override --user --filesystem=/media/alex/256gb-disk
-flatpak override --user --filesystem=xdg-config/MangoHud:ro
-flatpak override --user --filesystem=xdg-data/applications

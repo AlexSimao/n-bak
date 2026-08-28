@@ -88,23 +88,23 @@ https://github.com/AlexSimao/n-bak.git \
 
 sudo linuxtoys \
     --install \
-    --script docker steam bottles flatseal \
+    --script docker bottles \
     -y
 
 # ==============================================================================
 # Instala o Mise
 # ==============================================================================
 
-sudo sh -c "$(curl https://mise.run/zsh | sh)"
+#curl https://mise.run/zsh | sh
 
 # Habilita autocompletar no ZSH
 
-mise use --global usage
+#source /home/alex/.zshrc
+#mise use --global usage
 
-sudo mkdir -p /usr/local/share/zsh/site-functions
+#sudo mkdir -p /usr/local/share/zsh/site-functions
 
-mise completion zsh | sudo tee \
-/usr/local/share/zsh/site-functions/_mise >/dev/null
+#mise completion zsh | sudo tee /usr/local/share/zsh/site-functions/_mise
 
 # ==============================================================================
 # Instala SaveDesktop
@@ -198,34 +198,34 @@ sudo usermod -aG docker "$USER"
 
 # Exibe o menu do GRUB
 
-sudo sed -i '/^GRUB_TIMEOUT_STYLE=hidden$/{
-s/^/#/
-a GRUB_TIMEOUT_STYLE=menu
-}' /etc/default/grub
+#sudo sed -i '/^GRUB_TIMEOUT_STYLE=hidden$/{
+#s/^/#/
+#a GRUB_TIMEOUT_STYLE=menu
+#}' /etc/default/grub
 
 # Timeout
 
-sudo sed -i \
-'s/^GRUB_TIMEOUT=0$/GRUB_TIMEOUT=15/' \
-/etc/default/grub
+#sudo sed -i \
+#'s/^GRUB_TIMEOUT=0$/GRUB_TIMEOUT=15/' \
+#/etc/default/grub
 
 # Resolução
 
-sudo sed -i \
-'s/^#\?GRUB_GFXMODE=.*/GRUB_GFXMODE=1920x1080/' \
-/etc/default/grub
+#sudo sed -i \
+#'s/^#\?GRUB_GFXMODE=.*/GRUB_GFXMODE=1920x1080/' \
+#/etc/default/grub
 
 # Ativa o OS-Prober
 
-sudo sed -i \
-'s/^#\?GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' \
-/etc/default/grub
+#sudo sed -i \
+#'s/^#\?GRUB_DISABLE_OS_PROBER=.*/GRUB_DISABLE_OS_PROBER=false/' \
+#/etc/default/grub
 
 # ==============================================================================
 # Adiciona entradas personalizadas ao GRUB
 # ==============================================================================
 
-sudo tee -a /etc/grub.d/40_custom >/dev/null <<'EOF'
+sudo tee -a /etc/grub.d/40_custom <<'EOF'
 
 #menuentry "Instalar Windows (UEFI)" {
 #    insmod part_gpt
@@ -234,7 +234,7 @@ sudo tee -a /etc/grub.d/40_custom >/dev/null <<'EOF'
 #    chainloader /efi/boot/bootx64.efi
 #}
 
-if search --no-floppy --label VTOYEFI --set=root ; then
+if search --no-floppy --label VTOYEFI --set=temp_root ; then
 menuentry "Ventoy.boot (UEFI)" {
     insmod part_gpt
     insmod fat
@@ -244,7 +244,7 @@ menuentry "Ventoy.boot (UEFI)" {
 }
 fi
 
-if search --no-floppy --label BATOCERA --set=root ; then
+if search --no-floppy --label BATOCERA --set=temp_root ; then
 menuentry "Batocera.linux (Legacy)" {
     insmod part_msdos
     insmod fat
@@ -262,11 +262,7 @@ EOF
 
 if [ "$DISTRO" = "fedora" ]; then
 
-    if [ -d /sys/firmware/efi ]; then
-        sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-    else
-        sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-    fi
+    sudo grub2-mkconfig -o /boot/grub2/grub.cfg  
 
 else
 

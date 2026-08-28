@@ -23,7 +23,7 @@ echo "Sistema detectado: $DISTRO"
 # ==========================================
 if [ "$DISTRO" = "fedora" ]; then
     sudo dnf upgrade --refresh -y
-    sudo dnf install -y \
+    sudo dnf install --skip-unavailable -y \
         curl \
         git \
         zsh \
@@ -82,7 +82,7 @@ yes | sh -c \
 "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
 
 curl \
-https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/templates/zshrc.zsh-template \
+https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/templates/minimal.zshrc \
 > "$HOME/.zshrc"
 
 # Comenta a linha referente a plugins no .zshrc
@@ -96,7 +96,6 @@ cat <<'EOF' >> "$HOME/.zshrc"
 alias ips="ip -c -br a"
 alias mkdir="mkdir -pv"
 alias sudo="sudo "
-
 EOF
 
 if [ "$DISTRO" = "debian" ]; then
@@ -145,7 +144,6 @@ SPACESHIP_CHAR_SUFFIX=" "
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light zdharma-continuum/fast-syntax-highlighting
-
 zinit light spaceship-prompt/spaceship-prompt
 
 EOF
@@ -154,6 +152,8 @@ EOF
 # Define ZSH como shell padrão
 # ==========================================
 sudo chsh -s "$(command -v zsh)" "$USER"
+
+dconf load /org/gnome/Ptyxis/ < <(curl -fsSL https://raw.githubusercontent.com/AlexSimao/n-bak/refs/heads/main/perfis_ptyxis.dconf)
 
 # ==========================================
 # LinuxToys
