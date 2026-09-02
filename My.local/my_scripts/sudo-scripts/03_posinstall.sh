@@ -43,12 +43,12 @@ echo "Sistema detectado: $DISTRO"
 # ==============================================================================
 
 if [ "$DISTRO" = "fedora" ]; then
-
+    
+    sudo dnf config-manager setopt installonly_limit=2
+    
     sudo dnf upgrade --refresh -y
-
     sudo dnf autoremove -y
-
-    sudo dnf install -y \
+    sudo dnf install --skip-unavailable -y \
         curl \
         git \
         zsh \
@@ -58,11 +58,8 @@ if [ "$DISTRO" = "fedora" ]; then
 else
 
     sudo apt update
-
     sudo apt upgrade -y
-
     sudo apt autoremove -y
-
     sudo apt install -y \
         curl \
         git \

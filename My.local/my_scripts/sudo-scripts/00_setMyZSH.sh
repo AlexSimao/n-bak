@@ -22,6 +22,7 @@ echo "Sistema detectado: $DISTRO"
 # Instalação dos pacotes
 # ==========================================
 if [ "$DISTRO" = "fedora" ]; then
+    sudo dnf config-manager setopt installonly_limit=2
     sudo dnf upgrade --refresh -y
     sudo dnf install --skip-unavailable -y \
         curl \
@@ -33,7 +34,12 @@ if [ "$DISTRO" = "fedora" ]; then
         flatpak \
         gnome-software \
         gnome-software-plugin-flatpak \
-        malcontent-control
+        malcontent-control 
+        
+        # Instalar fontes da Microsoft
+        #sudo dnf install --skip-unavailable -y cabextract xorg-x11-font-utils mkfontscale fontconfig cpio unzip
+        #sudo rpm -ivh --nodigest --nofiledigest https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+
 
 else
     sudo apt update
@@ -49,7 +55,8 @@ else
         flatpak \
         gnome-software-plugin-flatpak \
         gnome-software-plugin-snap \
-        malcontent-gui
+        malcontent-gui \
+        ttf-mscorefonts-installer
 fi
 
 # ==========================================
@@ -78,6 +85,8 @@ fi
 # ==========================================
 # Instala Oh My Zsh
 # ==========================================
+sudo rm -rf /home/$USER/.oh-my-zsh
+
 yes | sh -c \
 "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
 
